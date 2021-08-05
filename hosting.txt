@@ -1,0 +1,208 @@
+1) #!/bin/bash
+sudo apt update
+sudo apt upgrade -y
+sudo apt install nginx -y
+
+2) git clone https://github.com/surajotari28/sshtestingforjenkinsjob.git
+
+3) apt install python3.8-venv
+
+4) python3 -m venv venv
+
+5) source venv/bin/activate
+
+6) pip install -r requirements.txt
+
+7) sudo apt install python3-pip
+
+8) pip install gunicorn
+
+9) add instance public ip to allowed host
+
+10) gunicorn --bind 0.0.0.0:8000 config.wsgi:application
+
+11) check site is working or not using public ip
+
+********************* Add supervisor for work site in background or dettached mode ***************
+
+1) sudo apt install -y supervisor
+
+2) cd /etc/supervisor/conf.d
+
+3) sudo nano /etc/supervisor/conf.d gunicorn.conf
+
+4) sudo mkdir /var/log/gunicorn
+
+5) [program:gunicorn]
+directory=/home/ubuntu/webappdevelopment/Django
+command=/home/ubuntu/webappdevelopment/venv/bin/gunicorn --workers 3 --bind unix:/home/ubuntu/webappdevelopment/Django/app.sock config.wsgi:application
+autostart=true
+autorestart=true
+stderr_logfile=/var/log/gunicorn/gunicorn.err.log
+stdout_logfile=/var/log/gunicorn/gunicorn.out.log
+
+[group:guni]
+programs:gunicorn
+
+6) change path as per your configuration
+
+7) ctrl+s then ctrl+o then ctrl+x
+
+8) sudo supervisorctl reread
+
+9) sudo supervisorctl update
+
+10) sudo supervisorctl status
+
+11) cd
+
+********************** Deploying Django with Celery and Redis on Ubuntu ******************
+
+1) sudo apt update
+
+2) sudo apt install redis-server -y
+
+3) redis-cli ping
+
+4) sudo systemctl enable redis-server.service
+
+5) cd /etc/supervisor/conf.d
+
+6) sudo nano celery.conf
+
+7)[program:celery]
+directory=/home/ubuntu/webappdevelopment/Django
+command=/home/ubuntu/webappdevelopment/venv/bin/celery -A config worker -l INFO
+
+user=ubuntu
+numprocs=1
+stdout_logfile=/home/ubuntu/webappdevelopment/Django/celerylogs/worker-access.log
+stderr_logfile=/home/ubuntu/webappdevelopment/Django/celerylogs/worker-error.log
+stdout_logfile_maxbytes=50
+stderr_logfile_maxbytes=50
+stdout_logfile_backups=10
+stderr_logfile_backups=10
+autostart=true
+autorestart=true
+startsecs=10
+
+8) change path as per your configuration make celerylogs in django directory
+
+9) ctrl+s then ctrl+o then ctrl+x
+
+10) cd
+
+11) go django project directory and create folder celerylogs
+
+12) sudo supervisorctl reread
+
+13) sudo supervisorctl update
+
+14) sudo supervisorctl status
+
+15) if celery not working and getting error import asynch then change to asynchronous at error path in redis.py. read below blog.
+
+Renamed "C:\Users\myusername\AppData\Local\Programs\Python\Python37-32\Lib\site-packages\celery\backends\async.py" to "C:\Users\myusername\AppData\Local\Programs\Python\Python37-32\Lib\site-packages\celery\backends\asynchronous.py"
+
+Opened redis.py and changed every line that had the keyword "async" to "asynchronous".
+
+Apparently,
+
+async
+
+is now a keyword in Python 3.
+
+16) use below command for replace async to achynchronous in redis.py
+
+sed -i 's/async/asynchronous/g' redis.py
+
+16) sudo supervisorctl reread
+
+17) sudo supervisorctl update
+
+18) sudo supervisorctl status
+
+19) sudo supervisorctl restart all
+
+******************************************* Configuring nginx ****************************************
+
+1) cd /etc/nginx/sites-available 
+
+2) sudo nano django.conf
+
+3) paste below code in django.conf
+
+4) server{
+        listen 80;
+        server_name 13.233.192.15;
+
+        client_max_body_size 100M;
+
+	access_log /home/ubuntu/webappdevelopment/Django/nginxlogs/nginx-access.log;
+    	error_log /home/ubuntu/webappdevelopment/Django/nginxlogs/nginx-error.log;
+
+        location / {
+                include proxy_params;
+                proxy_pass http://unix:/home/ubuntu/webappdevelopment/Django/app.sock;
+        }
+
+        location /static {
+                autoindex on;
+                alias /home/ubuntu/webappdevelopment/Django/build/assets;
+        }
+
+        location /media {
+                autoindex on;
+                alias /home/ubuntu/webappdevelopment/Django/media_root;
+        }
+        location /uploads {
+                client_max_body_size 100M;
+        }
+}
+
+5) change server name and static file path's as per your project configured
+
+6) ctrl+s then ctrl+o then ctrl+x
+
+8) sudo ln django.conf /etc/nginx/sites-enabled/
+
+9) sudo nginx -t
+
+10) sudo service nginx restart
+
+11) if you are geting error then you can check at
+	cd
+	/var/log/gunicorn
+	cat gunicorn.err.log
+
+12) if asking read write permission to django logs file then use sudo chmod 777 mysite.log
+
+************************* Django commands **************************
+
+1) go to django project and do python manage.py makemigrations and python manage.py migrate
+
+2) python manage.py collectstatic
+
+3) sudo supervisorctl restart all
+
+4) sudo service nginx restart
+
+****************************** SSH through vscode configuration *************
+
+1) sudo passwd ubuntu (this will change password for ubuntu user)
+
+2) sudo passwd root (this will change password for root user)
+
+3) sudo nano /etc/ssh/sshd_config
+
+change PasswordAuthentication no to PasswordAuthentication yes like below
+
+PasswordAuthentication yes
+
+4) ctrl+s then ctrl+o then ctrl+x
+
+5) sudo systemctl restart ssh.service
+
+6) inside vscode use remote desktop extension and configure user user along with public ip ssh ubuntu@23.45.89.115
+
+7) asking for password use where recently added at server
