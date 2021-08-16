@@ -206,3 +206,20 @@ PasswordAuthentication yes
 6) inside vscode use remote desktop extension and configure user user along with public ip ssh ubuntu@23.45.89.115
 
 7) asking for password use where recently added at server
+
+*************************************** pull commands ***************************************
+1) git pull origin master or git pull origin feature
+
+2) cd /webappdevlopment/Django/React
+
+3) npm run build
+
+4) drag build file from react folder to Django
+
+5) cd .. (come to Django directory)
+
+6) python manage.py collectstatic
+
+7) sudo supervisorctl restart all
+
+8) sudo service nginx restart
