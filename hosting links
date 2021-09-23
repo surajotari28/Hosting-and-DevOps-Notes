@@ -1,0 +1,25 @@
+Django project hosting links on AWS with nginx and gunicorn
+
+(hosting on AWS with gunicorn and nginx)
+https://www.youtube.com/watch?v=u0oEIqQV_-E&ab_channel=ShobiPP
+
+Write django.conf for nginx along with static file and collect static, RDS, Rout53, along with ssl certificate.
+https://www.youtube.com/watch?v=BzdYa9Lqlm4&list=PLDu5PyoUISmc1PdrUNUdc9LohmLA_Q-S5&index=3&ab_channel=TutorialWithProject
+
+Open django project and run python manage.py collectstatic
+
+For log generation use [chmod 777 db.sqlite3] also write some code in setting.py file
+
+below link for adding celery to django project
+https://dev.to/idrisrampurawala/deploying-django-with-celery-and-redis-on-ubuntu-3fo6
+
+React and django merge and host on port 80
+https://www.youtube.com/watch?v=69350tzaNOQ&t=41s&ab_channel=PriyanshuGupta
+
+file upload size with nginx
+https://www.youtube.com/watch?v=j1hNQcCeSlg&ab_channel=HowToMakeTechWorkfromTechRepublic
+
+Digital ocean django project hosting on ubuntu server all things (gunicorn, nginx, postgresql, ssl)
+https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-20-04
+
+https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-20-04
