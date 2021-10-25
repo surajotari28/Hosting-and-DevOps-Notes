@@ -1,4 +1,9 @@
-1) #!/bin/bash
+#!/bin/bash 
+sudo apt update 
+sudo apt upgrade -y
+sudo apt install nginx -y
+
+#!/bin/bash
 sudo apt update
 sudo apt upgrade -y
 sudo apt install nginx -y
