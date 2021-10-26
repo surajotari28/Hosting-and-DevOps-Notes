@@ -4,6 +4,7 @@ sudo apt upgrade -y
 sudo apt install nginx -y 
 
 for only linux instance
+#!/bin/bash
 sudo su
 yum update -y
 yum install httpd -y
