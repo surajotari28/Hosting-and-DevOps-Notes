@@ -1,18 +1,19 @@
 #!/bin/bash 
 sudo apt update 
 sudo apt upgrade -y
-sudo apt install nginx -y
+sudo apt install nginx -y 
 
-#!/bin/bash
-sudo apt update
-sudo apt upgrade -y
-sudo apt install nginx -y
-curl -s http://169.254.169.254/latest/dynamic/instance-identity/document >
-/usr/share/nginx/html/index.html 
-
+for only linux instance
 #!/bin/bash
 curl -s http://169.254.169.254/latest/dynamic/instance-identity/document >
 /var/www/html/index.html
+
+while creating ALB with different target group e.g /admindb/*
+#!/bin/bash
+curl -s http://169.254.169.254/latest/dynamic/instance-identity/document >
+/var/www/html/index.html
+mkdir /var/www/html/a
+echo "hello its new target added path from ALB" /var/www/html/a
 
 #!/bin/bash
 yum update -y
