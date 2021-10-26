@@ -19,6 +19,7 @@ mkdir /var/www/html/a
 echo "hello its new target added path from ALB" /var/www/html/a/test.html
 
 #!/bin/bash
+sudo su
 yum update -y
 yum install httpd -y
 service httpd start
