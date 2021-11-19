@@ -1,0 +1,16 @@
+Steps for creating and configuring VPC, private and public Subnets, IGW, Nat, ELB
+
+1) create vpc having CIDR 10.0.0.0/24 you will get 256 ips follow link for calculation (https://mxtoolbox.com/subnetcalculator.aspx)
+2) create subnets 2 public and 2 private in differant availability zone
+3) for public subnet add auto assign ip
+4) create route table Private-RT & ALB-Public-RT
+5) click on subnet associations and add subnets accordingly for public add public subnets and vice-versa
+6) create IGW and attach VPC
+7) create NAT select public subnet aalocate elastic ip and create
+8) go to route tables > ASG-public-RT > routes > edit routs > add 0.0.0.0/0 select IGW
+9) go to route tables > Private-RT > routes > edit routs > add 0.0.0.0/0 select NAT
+10) create ec2 instance in private subnet > disable auto assign public ip > security group HTTP & HTTPS, ssh if needs to configuration in 1a Availability zone (web server NGINX)
+11) create ec2 instance in private subnet > disable auto assign public ip > security group HTTP & HTTPS, ssh if needs to configuration in 1b Availability zone (web server NGINX)
+12) create Apllication load ballancer > add VPC > select public AZ with public subnet > security group HTTPS, HTTPS > add target group having private web server created earlier.
+13) check server from ALB DNS
+14) for ssh private server via NAT use there private ip for ssh e.g ssh -i "reactuser.pem" ubuntu@35.154.66.26
