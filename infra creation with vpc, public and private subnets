@@ -11,6 +11,6 @@ Steps for creating and configuring VPC, private and public Subnets, IGW, Nat, EL
 9) go to route tables > Private-RT > routes > edit routs > add 0.0.0.0/0 select NAT
 10) create ec2 instance in private subnet > disable auto assign public ip > security group HTTP & HTTPS, ssh if needs to configuration in 1a Availability zone (web server NGINX)
 11) create ec2 instance in private subnet > disable auto assign public ip > security group HTTP & HTTPS, ssh if needs to configuration in 1b Availability zone (web server NGINX)
-12) create Apllication load ballancer > add VPC > select public AZ with public subnet > security group HTTPS, HTTPS > add target group having private web server created earlier.
+12) create Apllication load ballancer > add VPC > select public AZ with public subnet > security group HTTP, HTTPS > add target group having private web server created earlier.
 13) check server from ALB DNS
 14) for ssh private server via NAT use there private ip for ssh e.g ssh -i "reactuser.pem" ubuntu@35.154.66.26
