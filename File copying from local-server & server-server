@@ -1,0 +1,17 @@
+* File copying local to server
+- either perform drag and drop from local to mobaxterm or vscode to vscode
+- scp -i -r "reactuser.pem" /build ubuntu@10.0.0.35 /home/ubuntu/
+
+* File copying from server to server
+- set-up user along with password
+  - sudo su
+  - useradd suraj
+  - passwd suraj
+  - usermod -aG sudo suraj
+  - check passauthentication needs to be yes (cat /etc/ssh/ssh_config)
+- ssh key generation
+  - su suraj
+  - sudo ssh-keygen
+  - sudo ssh-copy-id ubuntu@10.0.0.128
+- File copying server-server
+  - scp -r /build ubuntu@10.0.0.128 /home/ubuntu/webappdevelopement/Django/build
