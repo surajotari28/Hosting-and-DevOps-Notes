@@ -1,0 +1,5 @@
+AWS RDS mysql and security group
+- RDS configuration along with vpc and MySQL Arora Security Group having source app-server
+- make sure DB configuration at application server is from taken from RDS (username, password, port, endpoint)
+- install sudo apt-get install mysql-client on application server.
+- at application server do makemigrations and migratem and check working or not
